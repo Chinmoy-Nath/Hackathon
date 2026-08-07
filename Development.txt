@@ -1,0 +1,677 @@
+# ROLE
+
+You are a Principal AI Solutions Architect, Multi-Agent Systems Engineer, Cloud Architect, and Retail Marketing Domain Expert.
+
+Your objective is to design and implement a production-inspired prototype within a 2-day hackathon. The solution should demonstrate intelligent multi-agent orchestration, explainable AI recommendations, personalized marketing, multilingual communication, privacy compliance, and measurable business outcomes.
+
+The solution should prioritize architectural quality, AI reasoning, modularity, explainability, scalability, and business value over implementation complexity.
+
+--------------------------------------------------
+
+# PROBLEM STATEMENT
+
+Retail marketing teams struggle to design personalized campaigns that effectively reach customers across multiple communication channels such as Email, WhatsApp, SMS, Social Media, Push Notifications, and YouTube.
+
+Existing solutions suffer from
+
+- Generic marketing content
+- Poor customer segmentation
+- No AI-driven campaign generation
+- Weak personalization
+- Lack of multi-channel optimization
+- Limited analytics
+- Manual campaign creation
+- High marketing cost
+- Low conversion rate
+
+The objective is to build an AI-powered Campaign Intelligence Platform capable of generating personalized automotive campaigns for Tata Motors (India).
+
+--------------------------------------------------
+
+# BUSINESS SCOPE
+
+The prototype should only support Tata Motors passenger vehicles.
+
+Vehicle Categories
+
+• Petrol
+• EV
+• Hybrid (Non-commercial only)
+
+Customer Segments
+
+• Mid Range
+• Premium
+• Luxury
+
+Future extensibility should be considered but not implemented.
+
+--------------------------------------------------
+
+# PRIMARY USERS
+
+There are only two system roles.
+
+1. Campaign Manager
+
+Responsible for
+
+• Creating campaigns
+• Choosing campaign objectives
+• Reviewing AI-generated campaigns
+• Scheduling campaigns
+• Monitoring campaign execution
+
+2. Retail Manager
+
+Responsible for
+
+• Sales performance
+• Revenue
+• ROI
+• Dealer performance
+• Campaign effectiveness
+• Customer conversion
+• Executive dashboards
+
+Implement Role Based Access Control (RBAC).
+
+--------------------------------------------------
+
+# MULTI AGENT ARCHITECTURE
+
+The system must be implemented as an orchestrated multi-agent workflow.
+
+The architecture must include the following agents.
+
+--------------------------------------------------
+
+1. Campaign Orchestrator Agent
+
+Responsibilities
+
+• Receive user request
+• Understand campaign objective
+• Extract business intent
+• Create execution plan
+• Coordinate every downstream agent
+• Track agent execution status
+
+Example
+
+User Input
+
+"Launch a Diwali campaign for Nexon EV customers in Bangalore who purchased within the last 3 years."
+
+Output
+
+Campaign Objective
+Target Audience
+KPIs
+Budget
+Timeline
+Vehicle Segment
+
+--------------------------------------------------
+
+2. Customer Intelligence Agent
+
+Responsibilities
+
+Collect customer information from
+
+• CRM
+• Purchase history
+• Service history
+• Website activity
+• Social engagement
+• Email engagement
+• Campaign history
+
+Generate
+
+• Customer Persona
+• Buying Intent
+• Customer Segment
+• Preferred Communication Channel
+• Preferred Language
+• Vehicle Ownership Profile
+
+Never expose sensitive customer information directly to downstream agents.
+
+--------------------------------------------------
+
+3. Recommendation Engine
+
+This is NOT an LLM.
+
+Use a Hybrid Recommendation Pipeline.
+
+Stage 1
+
+Business Rule Engine
+
+Examples
+
+IF
+Customer owns Tiago for 6+ years
+
+Recommend Punch
+
+IF
+Customer frequently views EV pages
+
+Recommend Nexon EV
+
+IF
+Customer annual income > threshold
+
+Recommend Harrier or Safari
+
+Stage 2
+
+Intent Scoring
+
+Predict purchase likelihood using
+
+• Website visits
+• Brochure downloads
+• Service history
+• Social engagement
+• Previous campaigns
+• Test drive history
+
+Generate
+
+Purchase Intent Score
+
+Low
+
+Medium
+
+High
+
+Stage 3
+
+Recommendation Explanation
+
+Every recommendation must include
+
+Recommended Product
+
+Confidence Score
+
+Reason
+
+Example
+
+Recommended Vehicle
+
+Curvv EV
+
+Confidence
+
+91%
+
+Reason
+
+Customer owns a 6-year-old Nexon Petrol, downloaded Curvv brochure twice, visited EV pages five times in the last month, and opened three recent EV campaign emails.
+
+This explanation must be visible in the dashboard.
+
+--------------------------------------------------
+
+4. Content Generation Agent
+
+Generate personalized campaign content for
+
+• Email
+• WhatsApp
+• SMS
+• Instagram
+• Facebook
+• Push Notifications
+
+The LLM is only responsible for communication.
+
+It must never independently decide the product recommendation.
+
+--------------------------------------------------
+
+5. Localization Agent
+
+Responsibilities
+
+Generate multilingual content.
+
+Supported Languages
+
+English
+
+Hindi
+
+The agent should perform localization rather than literal translation.
+
+Maintain
+
+• Vehicle names
+• Offers
+• Pricing
+• Brand tone
+
+Language selection should be based on customer preference and location.
+
+Future language support should be easily extensible.
+
+--------------------------------------------------
+
+6. Channel Selection Agent
+
+Determine the optimal communication channel.
+
+Possible Channels
+
+Email
+
+WhatsApp
+
+SMS
+
+Instagram
+
+Facebook
+
+YouTube
+
+Push Notification
+
+Generate
+
+Primary Channel
+
+Secondary Channel
+
+Channel Confidence
+
+Reasoning
+
+--------------------------------------------------
+
+7. Scheduler Agent
+
+Determine the optimal delivery time using
+
+• Customer activity
+• Email open history
+• Website visits
+• Time of day
+• Weekend activity
+• Festival calendar
+
+Output
+
+Best Day
+
+Best Time
+
+Expected Engagement Score
+
+--------------------------------------------------
+
+8. Campaign Execution Agent
+
+Responsibilities
+
+Send campaign using
+
+Email API
+
+WhatsApp API
+
+SMS API
+
+Push Notification API
+
+Social Media APIs
+
+Handle
+
+Retries
+
+Failures
+
+Delivery Status
+
+Logging
+
+--------------------------------------------------
+
+9. Analytics Agent
+
+Track
+
+Messages Sent
+
+Delivered
+
+Failed
+
+Opened
+
+CTR
+
+Replies
+
+Brochure Downloads
+
+Dealer Visits
+
+Test Drive Bookings
+
+Vehicle Inquiries
+
+Quotations
+
+Bookings
+
+Vehicle Purchases
+
+Revenue
+
+ROI
+
+Campaign Effectiveness
+
+--------------------------------------------------
+
+10. Privacy & Compliance Layer
+
+Every campaign must pass through this layer.
+
+Responsibilities
+
+Consent Management
+
+GDPR
+
+CAN-SPAM
+
+Data Minimization
+
+Data Anonymization
+
+Audit Logs
+
+Encryption
+
+RBAC
+
+Data Retention
+
+Unsubscribe Handling
+
+If customer unsubscribes
+
+Immediately
+
+Update consent status
+
+Prevent future campaigns
+
+Record analytics
+
+Generate unsubscribe metrics
+
+--------------------------------------------------
+
+# PARALLEL EXECUTION
+
+Only independent agents should execute simultaneously.
+
+Campaign Orchestrator
+
+↓
+
+Customer Intelligence Agent
+
+↓
+
+Parallel
+
+Recommendation Engine
+
+Content Agent
+
+Localization Agent
+
+Channel Agent
+
+↓
+
+Scheduler
+
+↓
+
+Execution
+
+↓
+
+Analytics
+
+--------------------------------------------------
+
+# DASHBOARDS
+
+Campaign Manager Dashboard
+
+Campaign Status
+
+Templates
+
+Schedules
+
+Agent Status
+
+Content Preview
+
+Channel Selection
+
+Language Used
+
+Open Rate
+
+CTR
+
+Conversion
+
+--------------------------------------------------
+
+Retail Manager Dashboard
+
+Revenue
+
+ROI
+
+Dealer Performance
+
+State-wise Sales
+
+Vehicle Segment Performance
+
+Campaign Performance
+
+Recommendation Effectiveness
+
+Executive KPIs
+
+--------------------------------------------------
+
+# RECOMMENDATION PRINCIPLES
+
+Do NOT use collaborative filtering.
+
+Do NOT use deep learning.
+
+Do NOT use reinforcement learning.
+
+Use
+
+Business Rule Engine
+
++
+
+Intent Scoring
+
++
+
+LLM Personalization
+
+Every recommendation must be explainable.
+
+--------------------------------------------------
+
+# SYNTHETIC DATA
+
+Use synthetic datasets representing
+
+Customer Profiles
+
+Purchase History
+
+Vehicle Ownership
+
+Website Activity
+
+Social Engagement
+
+Campaign Metrics
+
+Consent Status
+
+Language Preference
+
+Vehicle Interest
+
+Test Drive History
+
+--------------------------------------------------
+
+# TECHNOLOGY STACK
+
+Frontend
+
+React
+
+Backend
+
+FastAPI
+
+Python
+
+Agent Framework
+
+LangGraph
+
+or
+
+CrewAI
+
+LLM
+
+OpenAI GPT
+
+Database
+
+PostgreSQL
+
+Redis (optional)
+
+Vector Database (optional)
+
+Charts
+
+Recharts
+
+Authentication
+
+JWT
+
+--------------------------------------------------
+
+# NON FUNCTIONAL REQUIREMENTS
+
+Scalable
+
+Modular
+
+Secure
+
+Observable
+
+Explainable
+
+Reusable
+
+Production-inspired
+
+Microservice-friendly
+
+--------------------------------------------------
+
+# SUCCESS METRICS
+
+Higher Engagement
+
+Higher CTR
+
+Higher Test Drive Booking
+
+Higher Vehicle Inquiry
+
+Higher Conversion
+
+Reduced Campaign Creation Time
+
+Reduced Manual Work
+
+Improved Personalization
+
+Improved Recommendation Accuracy
+
+Reduced Marketing Cost
+
+Lower Customer Churn
+
+--------------------------------------------------
+
+# EVALUATION CRITERIA
+
+The solution should demonstrate
+
+✔ True Multi-Agent Collaboration
+
+✔ Explainable AI
+
+✔ Hybrid Recommendation Engine
+
+✔ Personalized Campaign Generation
+
+✔ Hindi & English Localization
+
+✔ Multi-Channel Delivery
+
+✔ Privacy Compliance
+
+✔ Consent Management
+
+✔ Real-Time Analytics
+
+✔ Automotive Domain Understanding
+
+✔ Modular Architecture
+
+✔ Clean UI
+
+✔ Production-grade Design Thinking
+
+Avoid over-engineering. Since this is a 2-day hackathon, prioritize a working end-to-end prototype that convincingly demonstrates the architecture, agent interactions, explainability, compliance, and measurable business value.
